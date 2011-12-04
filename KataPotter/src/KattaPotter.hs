@@ -1,3 +1,4 @@
 module KattaPotter where
 
-hi = undefined
+price :: [Int] -> Double
+price _ = -1
