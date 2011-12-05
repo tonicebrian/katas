@@ -17,10 +17,8 @@ calcTotalPrice titles = foldl (+) 0 $ map priceDiscount titles
 
 price :: [Int] -> Double
 price [] = 0
---price books = calcTotalPrice $ createPacks numTitles
+--price books = calcTotalPrice $ createPacks $ map length $ group books
 price books = calcTotalPrice $ createPacks' [] books
-    where
-        numTitles = map length $ group books
 
 -- Just work numerically with the number of different titles
 -- and an implicit greedy strategy
