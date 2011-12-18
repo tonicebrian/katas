@@ -1,0 +1,30 @@
+Name:               lovetriangle
+Version:            1.0
+Description:        4Clojure Love Triangle kata
+License:            GPL-3
+License-file:       LICENSE
+Author:             Toni Cebrián
+Maintainer:         cebrian@tid.es
+Build-Type:         Simple
+Cabal-Version:      >=1.8
+library
+  exposed-modules:  LoveTriangle
+  ghc-options:      -O2
+  ghc-prof-options: -prof -caf-all -auto-all
+  Build-Depends:    base >= 4,
+                    containers >= 0.4
+  hs-source-dirs:   src
+
+test-suite test-lovetriangle
+    type:           exitcode-stdio-1.0
+    main-is:        Test.hs
+    hs-source-dirs: test
+    ghc-options:    
+    build-depends:  base >= 4,
+                    lovetriangle,
+                    QuickCheck >= 2.4,
+                    HUnit >= 1.0,
+                    test-framework >= 0.2,
+                    test-framework-quickcheck2 >= 0.2,
+                    test-framework-hunit >= 0.2
+
