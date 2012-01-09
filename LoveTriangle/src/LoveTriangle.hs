@@ -12,14 +12,6 @@ data Direction = Up | Down  | Straight | Done deriving Show
 makeZerosOnes :: Int -> Int -> [Int]
 makeZerosOnes n m = (replicate n 0) ++ (replicate m 1)
 
--- matching bit strings
--- first list has ones when second has and they are of the same length 
-matches [] [] = True
-matches _ [] = False
-matches [] _ = False
-matches (0:xs) (1:ys) = False
-matches (_:xs) (_:ys) = matches xs ys 
-
 -- lists manipulation
 -- obtain next bitmap matrix generator
 nextList l = map (\x -> div x 2) l
@@ -33,6 +25,14 @@ getSize    (a,_,_,_,_) = a
 getExpect  (_,_,_,_,a) = a
 
 matchesTriangle column (_,_,_,_,expected) = matches column expected
+    where
+        -- matching bit strings
+        -- first list has ones when second has and they are of the same length 
+        matches [] [] = True
+        matches _ [] = False
+        matches [] _ = False
+        matches (0:xs) (1:ys) = False
+        matches (_:xs) (_:ys) = matches xs ys 
 
 matchesDone (_,Done,Done,_,_) = True
 matchesDone (_,_,_,_,_) = False
