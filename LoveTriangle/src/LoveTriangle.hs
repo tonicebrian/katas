@@ -18,12 +18,6 @@ nextList l = map (\x -> div x 2) l
 -- obtain next bitmap column
 nextColumn l = map (\x -> mod x 2) l
 
--- a partial triangle is an tuple: area so far, 2 directions, if it is a triangle already and the expected bitmap for next column 
-
-isComplete (_,_,_,a,_) = a
-getSize    (a,_,_,_,_) = a
-getExpect  (_,_,_,_,a) = a
-
 matchesTriangle column (_,_,_,_,expected) = matches column expected
     where
         -- matching bit strings
@@ -39,7 +33,7 @@ matchesDone (_,_,_,_,_) = False
 
 notMatchesDone x = not (matchesDone x)
 
-filterTriangles column = filter  (matchesTriangle column)
+filterTriangles column = filter (matchesTriangle column)
 filterDone = filter matchesDone
 filterNotDone = filter notMatchesDone  
 
@@ -93,13 +87,16 @@ continueTriangle (a, Straight, Down, True, expected)
 continueTriangle (a, dir1, dir2, amI, expected) = [(a + (sum expected), dir1, dir2, amI, (nextExpected dir1 dir2 expected))]
  
 maxTriangleSize l = foldl max  0 (map  (getSize) ((filter isComplete) l))
+    where
+        getSize    (a,_,_,_,_) = a
+        isComplete (_,_,_,a,_) = a
 
 -- Given a current maxsize, a list of partial triangles and a list of bit columns
 -- computes the size of the maximum triangle obtained by continuing with those columns derived from the list
 partialSolve currentMax currentResultList [] = currentMax
 partialSolve currentMax currentResultList (column:list) 
     | otherwise     = let
-                        newResultList = (foldl (++) [] (map continueTriangle (filterTriangles column currentResultList))) ++ (generateFromColumn column 0 ((length column)-1))
+                        newResultList = (concat (map continueTriangle (filterTriangles column currentResultList))) ++ (generateFromColumn column 0 ((length column)-1))
                         doneList = filterDone newResultList
                         maxDone = max (maxTriangleSize newResultList) currentMax
                         notDone = filterNotDone newResultList
