@@ -13,8 +13,6 @@ data Direction = Up | Down  | Straight | Done deriving Show
 div2Ok x = div x 2
 mod2Ok x = mod x 2
 
-ones =  foldl1 (+) 
-
 makeZerosOnes :: Int -> Int -> [Int]
 makeZerosOnes n m = (replicate n 0) ++ (replicate m 1)
 
@@ -85,18 +83,18 @@ generateFromColumn (1:col) m n = (1, Up, Straight, True, (makeZerosOnes (m-1) 2)
 -- First the increasing cases
 -- base positive case
 continueTriangle (a, _, _, amI, expected)
-   | (ones expected) == 1    = [(a + 1, Done, Done, True, [])]
+   | (sum expected) == 1    = [(a + 1, Done, Done, True, [])]
 continueTriangle (a, Up, Down, True, expected)
-   | ((head expected) == 1) || ((last expected) == 1) = [(a + (ones expected), Done, Done, True, [])]
-   | otherwise                                        = [(a + (ones expected), Up, Down, True, (nextExpected Up Down expected)) ]  
+   | ((head expected) == 1) || ((last expected) == 1) = [(a + (sum expected), Done, Done, True, [])]
+   | otherwise                                        = [(a + (sum expected), Up, Down, True, (nextExpected Up Down expected)) ]  
 continueTriangle (a, Up, Straight, True, expected)
-   | ((head expected) == 1) = [(a + (ones expected), Down, Straight, False, (nextExpected Down Straight expected)), (a+(ones expected), Done, Done, True, [])]
-   | otherwise              = [(a + (ones expected), Down, Straight, False, (nextExpected Down Straight expected)), (a+(ones expected), Done, Done, True, []), (a + (ones expected), Up, Straight, True, (nextExpected Up Straight expected))]
+   | ((head expected) == 1) = [(a + (sum expected), Down, Straight, False, (nextExpected Down Straight expected)), (a+(sum expected), Done, Done, True, [])]
+   | otherwise              = [(a + (sum expected), Down, Straight, False, (nextExpected Down Straight expected)), (a+(sum expected), Done, Done, True, []), (a + (sum expected), Up, Straight, True, (nextExpected Up Straight expected))]
 continueTriangle (a, Straight, Down, True, expected)
-   | ((last expected) == 1) = [(a + (ones expected), Straight, Up, False, (nextExpected Straight Up expected)), (a+(ones expected), Done, Done, True, [])]
-   | otherwise              = [(a + (ones expected), Straight, Up, False, (nextExpected Straight Up expected)), (a+(ones expected), Done, Done, True, []), (a + (ones expected), Straight, Down, True, (nextExpected Straight Down expected))]
+   | ((last expected) == 1) = [(a + (sum expected), Straight, Up, False, (nextExpected Straight Up expected)), (a+(sum expected), Done, Done, True, [])]
+   | otherwise              = [(a + (sum expected), Straight, Up, False, (nextExpected Straight Up expected)), (a+(sum expected), Done, Done, True, []), (a + (sum expected), Straight, Down, True, (nextExpected Straight Down expected))]
 -- Second the decreasing cases (all conform to the same equation)                                                 
-continueTriangle (a, dir1, dir2, amI, expected) = [(a + (ones expected), dir1, dir2, amI, (nextExpected dir1 dir2 expected))]
+continueTriangle (a, dir1, dir2, amI, expected) = [(a + (sum expected), dir1, dir2, amI, (nextExpected dir1 dir2 expected))]
  
 maxTriangleSize l = foldl max  0 (map  (getSize) ((filter isComplete) l))
 
