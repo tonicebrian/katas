@@ -131,17 +131,4 @@ unitTest (result, list) = (solve list) == result
 
 
 twoTimesPlusOne x = 2*x + 1
--- Generates a list of pairs with second element an all 1 square of size <=n with its maximum triangle area as first  
-generatedTests n                                                  
-   | n <= 0    = []
-   | n == 1    = [(1, [1])]
-   | otherwise = let 
-                   list = generatedTests (n-1)
-                   (m, l) = head list
-                   g = map twoTimesPlusOne l
-                   h = (head g):g
-                 in
-                   (m+n, h):list
-                     
-unitTests = map unitTest ((generatedTests 20) ++ [(10, [15,15,15,15,15]), (15, [1,3,7,15,31]), (3, [3,3]), (4, [7,3]), (6, [17,22,6,14,22]), (9, [18,7,14,14,6,3]), (1, [21,10,21,10]), (1, [0,31,0,31,0]), (9, [1,3,7,11,1])])
 
