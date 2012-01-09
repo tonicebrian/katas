@@ -9,10 +9,6 @@ where
 -- Directions for partial triangles
 data Direction = Up | Down  | Straight | Done deriving Show
 
--- basic tools to manipulate base 2 expansions
-div2Ok x = div x 2
-mod2Ok x = mod x 2
-
 makeZerosOnes :: Int -> Int -> [Int]
 makeZerosOnes n m = (replicate n 0) ++ (replicate m 1)
 
@@ -26,9 +22,9 @@ matches (_:xs) (_:ys) = matches xs ys
 
 -- lists manipulation
 -- obtain next bitmap matrix generator
-nextList l = map div2Ok l
+nextList l = map (\x -> div x 2) l
 -- obtain next bitmap column
-nextColumn l = map mod2Ok l
+nextColumn l = map (\x -> mod x 2) l
 
 -- a partial triangle is an tuple: area so far, 2 directions, if it is a triangle already and the expected bitmap for next column 
 
