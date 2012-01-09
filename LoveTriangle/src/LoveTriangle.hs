@@ -1,3 +1,5 @@
+-- This code was copied from https://github.com/Menaerus/FL/blob/master/Haskell/lovetriangles.hs
+-- and modified thereafter
 module LoveTriangle 
     (
      lovetriangle
@@ -14,9 +16,8 @@ equalZero x = 0 == x
 
 ones =  foldl1 (+) 
 
-makeZerosOnes 0 0 = []
-makeZerosOnes 0 n = 1 : (makeZerosOnes 0 (n-1))
-makeZerosOnes n m = 0 : (makeZerosOnes (n-1) m)
+makeZerosOnes :: Int -> Int -> [Int]
+makeZerosOnes n m = (replicate n 0) ++ (replicate m 1)
 
 --
 allZeros l = foldl1 (&&) (map equalZero l)
