@@ -1,6 +1,8 @@
-module LoveTriangle where
-
-lovetriangle = solve
+module LoveTriangle 
+    (
+     lovetriangle
+    )
+where
 
 -- Directions for partial triangles
 data Direction = Up | Down  | Straight | Done deriving Show
@@ -124,4 +126,4 @@ generateList list
 solves initMax initList list = max (partialSolve initMax initList list) (partialSolve initMax initList (reverse list))
                          
 -- The entry point                        
-solve list = solves 0 [] (generateList list) 
+lovetriangle list = solves 0 [] (generateList list) 
