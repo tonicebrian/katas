@@ -12,16 +12,11 @@ data Direction = Up | Down  | Straight | Done deriving Show
 -- basic tools to manipulate base 2 expansions
 div2Ok x = div x 2
 mod2Ok x = mod x 2
-equalZero x = 0 == x
 
 ones =  foldl1 (+) 
 
 makeZerosOnes :: Int -> Int -> [Int]
 makeZerosOnes n m = (replicate n 0) ++ (replicate m 1)
-
---
-allZeros l = foldl1 (&&) (map equalZero l)
-
 
 -- matching bit strings
 -- first list has ones when second has and they are of the same length 
@@ -120,7 +115,7 @@ partialSolve currentMax currentResultList (column:list)
                         
 generateList [] = []
 generateList list
-   | (allZeros list) = []
+   | (all (== 0) list) = []
    | otherwise       = (nextColumn list):(generateList (nextList list))
 
 -- complete partial solver with the list and its reverse 
