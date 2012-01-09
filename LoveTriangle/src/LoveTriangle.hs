@@ -125,10 +125,3 @@ solves initMax initList list = max (partialSolve initMax initList list) (partial
                          
 -- The entry point                        
 solve list = solves 0 [] (generateList list) 
-
--- Unit Test
-unitTest (result, list) = (solve list) == result  
-
-
-twoTimesPlusOne x = 2*x + 1
-
