@@ -1,0 +1,10 @@
+Scala implementation based on this Haskell blog http://joaopizani.hopto.org/en/2012/01/haskell-kata-game-of-life/
+
+In order to run an instance, from SBT 0.11 or superior
+> run <filename>
+
+for instance
+> run data/random.txt
+
+For a random 50x50 instance
+> run random instance
