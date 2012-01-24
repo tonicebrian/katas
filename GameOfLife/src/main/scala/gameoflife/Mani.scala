@@ -4,7 +4,7 @@ object Main {
   def main(args:Array[String]){
     val filename = args(0)
     var board : GameOfLife.Board = Nil
-    if(args.length > 1) {
+    if(filename.equals("random")) {
       // Means that we want random boards
       val h = 50
       val v = 50
