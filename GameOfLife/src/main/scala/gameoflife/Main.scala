@@ -6,8 +6,12 @@ object Main {
     var board : GameOfLife.Board = Nil
     if(filename.equals("random")) {
       // Means that we want random boards
-      val h = 50
-      val v = 50
+      var h = 50
+      var v = 50
+      if(args.length == 2) {
+        h = args(1).toInt
+        v = h
+      }
       board = (for (i <- 0 until h) yield
                  (for (j <- 0 until v) yield
                    scala.util.Random.nextBoolean()).toList).toList
