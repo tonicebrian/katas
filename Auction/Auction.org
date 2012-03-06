@@ -35,11 +35,11 @@ though.
 
 #+name: is-bargain
 #+begin_src haskell
-isBargain :: Product -> [Product] -> Bool
-isBargain p ps = p == (maximum ps)
-  
-isTerrible :: Product -> [Product] -> Bool
-isTerrible p ps = p == (minimum ps)  
+  isBargain :: Product -> [Product] -> Bool
+  isBargain p ps = p == (maximum ps)
+    
+  isTerrible :: Product -> [Product] -> Bool
+  isTerrible p ps = p == (minimum ps)  
 #+end_src
 
 One day you wonder how many terrible deals and bargains are
@@ -58,7 +58,9 @@ calculate the number of terrible deals and bargains on the site.
 
 #+name: gen-points
 #+begin_src haskell
-iterate (\(pi,wi) -> ((A*pi+M) `mod` M),(C*wi+d)`mod`K)) (p1,w1)
+  genPoints :: [Int] -> [(Int,Int)]
+  genPoints N:P1:W1:M:K:A:B:C:[] = take N $ iterate (\(pi,wi) -> ((A*pi+M) `mod` M),(C*wi+d)`mod`K))) (P1,W1)
+  genPoints _ = error "Number of parameters erroneus"
 #+end_src
 
 Input The first line of the input file contains a single integer T:
@@ -90,6 +92,25 @@ Constraints
 If we represent the points in a 2D grid, the terrible bargains are
 those in the upper right side of the convex hull. The bargains are in
 the lower left side of the convex hull.
+
+** General algorithm
+#+name: bargains
+#+begin_src haskell
+  bargains :: [Int] -> (Int,Int)
+  bargains problem = 
+    where 
+      bargains = filter (inBox west south) hull
+      hull = grahamScan $ genPoints problem      
+      north = maximumBy (\a b-> compare (fst a) (fst b)) hull
+      east = maximumBy (\a b-> compare (snd a) (snd b)) hull
+      south = minimumBy  (\a b-> compare (fst a) (fst b)) hull
+      west = minimumBy (\a b-> compare (snd a) (snd b)) hull
+      
+      inBox (x1,y1) (x2,y2) (a,b) = xCond && yCond
+        where
+          xCond = (x1 >= a) && (x2 <= a)
+          yCond = (y1 <= b) && (y2 >= b)
+#+end_src
 
 ** Graham algorithm
 #+name: graham-algo
