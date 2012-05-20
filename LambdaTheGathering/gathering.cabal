@@ -1,0 +1,29 @@
+Name:               gathering
+Version:            1.0
+Description:        ICFP problem of Lambda the Gathering
+License:            GPL-3
+Author:             Toni Cebrián
+Maintainer:         ancechu@gmail.com
+Build-Type:         Simple
+Cabal-Version:      >=1.8
+executable gathering
+  main-is:          Main.hs
+  ghc-options:      -threaded -rtsopts -O2
+  ghc-prof-options: -prof -caf-all -auto-all
+  Build-Depends:    base >= 4,
+                    containers >= 0.4
+  build-tools:      alex
+  hs-source-dirs:   src/haskell
+
+test-suite test-gathering
+    type:           exitcode-stdio-1.0
+    main-is:        Test.hs
+    hs-source-dirs: test/haskell src/haskell
+    ghc-options:    
+    build-depends:  base >= 4,
+                    QuickCheck >= 2.4,
+                    HUnit >= 1.0,
+                    test-framework >= 0.2,
+                    test-framework-quickcheck2 >= 0.2,
+                    test-framework-hunit >= 0.2
+
