@@ -6,14 +6,28 @@ Author:             Toni Cebrián
 Maintainer:         ancechu@gmail.com
 Build-Type:         Simple
 Cabal-Version:      >=1.8
-executable gathering
-  main-is:          Main.hs
+
+executable server
+  main-is:          Server.hs
   ghc-options:      -threaded -rtsopts -O2
   ghc-prof-options: -prof -caf-all -auto-all
   Build-Depends:    base >= 4,
-                    containers >= 0.4
-  build-tools:      alex
-  hs-source-dirs:   src/haskell
+                    containers >= 0.4,
+                    bytestring,
+                    network,
+                    Thrift >= 0.6
+  hs-source-dirs:   src/haskell src/haskell/gen-hs
+
+executable client
+  main-is:          Client.hs
+  ghc-options:      -threaded -rtsopts -O2
+  ghc-prof-options: -prof -caf-all -auto-all
+  Build-Depends:    base >= 4,
+                    containers >= 0.4,
+                    network,
+                    bytestring,
+                    Thrift >= 0.6
+  hs-source-dirs:   src/haskell src/haskell/gen-hs
 
 test-suite test-gathering
     type:           exitcode-stdio-1.0
