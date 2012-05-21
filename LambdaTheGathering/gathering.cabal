@@ -15,7 +15,7 @@ executable server
                     containers >= 0.4,
                     bytestring,
                     network,
-                    Thrift >= 0.6
+                    thrift >= 0.6
   hs-source-dirs:   src/haskell src/haskell/gen-hs
 
 executable client
@@ -26,7 +26,7 @@ executable client
                     containers >= 0.4,
                     network,
                     bytestring,
-                    Thrift >= 0.6
+                    thrift >= 0.6
   hs-source-dirs:   src/haskell src/haskell/gen-hs
 
 test-suite test-gathering
