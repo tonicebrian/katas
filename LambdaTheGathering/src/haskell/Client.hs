@@ -1,8 +1,10 @@
 import GameState_Client
 import Service_Types
 import Network
+import Network.Socket.Internal
 import System.IO
 import System.Environment (getArgs)
+import Data.Word
 
 -- Thrift libraries
 import Thrift
@@ -31,5 +33,9 @@ clientFunc host p = do
   tClose h
 
 main = do
+    args <- getArgs
+    let (port',host') = if (length args) == 1 
+                        then (port,host)
+                        else (Network.Socket.Internal.PortNum $ read (args !! 1)::PortNumber, args !! 2)
     clientFunc host port
     
