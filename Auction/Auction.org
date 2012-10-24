@@ -10,7 +10,7 @@ data Product = P Double Double -- Price & Weight
 We shall say that product A is strictly preferred over product B if A
 costs less than B and is not heavier (they may be of equal weight) or
 if A weighs less and is not more expensive (they can have equal
-price).
+price). 
 
 This can be modelled by providing the corresponding Eq and Ord
 instances for the Product type
