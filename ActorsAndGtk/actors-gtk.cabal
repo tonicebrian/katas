@@ -1,0 +1,20 @@
+Name:               actors-gtk
+Version:            1.0
+Description:        Test of actors and gtk
+License:            GPL-3
+License-file:       LICENSE
+Author:             Toni Cebrián
+Maintainer:         ancechu@gmail.com
+Build-Type:         Simple
+Cabal-Version:      >=1.8
+executable actors-gtk
+  main-is:          Main.hs
+  ghc-options:      -threaded -rtsopts -O2
+  ghc-prof-options: -prof -caf-all -auto-all
+  Build-Depends:    base >= 4,
+                    containers >= 0.4,
+                    distributed-process >= 0.4,
+                    gtk,
+                    transformers
+  hs-source-dirs:   src
+
