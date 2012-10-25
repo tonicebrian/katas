@@ -14,7 +14,11 @@ executable actors-gtk
   Build-Depends:    base >= 4,
                     containers >= 0.4,
                     distributed-process >= 0.4,
+                    distributed-process-simplelocalnet,
                     gtk,
-                    transformers
+                    transformers,
+                    time,
+                    binary,
+                    derive
   hs-source-dirs:   src
 
